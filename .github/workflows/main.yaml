@@ -1,0 +1,25 @@
+name: Main
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  tag:
+    name: Tag
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Set up Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: 1.16
+      - name: Create and push tag
+        run: |
+          curl -sfL https://install.goreleaser.com/github.com/caarlos0/svu.sh | sudo bash -s -- -b /usr/local/bin
+          git tag "$(svu next)"
+          git push --tags

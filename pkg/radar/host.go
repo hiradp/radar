@@ -4,13 +4,14 @@ import (
 	"bytes"
 	"fmt"
 	"html/template"
+	"log"
 	"strings"
 
 	"github.com/olekukonko/tablewriter"
 )
 
 type Host struct {
-	Name string
+	Name      string
 	Endpoints []Endpoint
 }
 
@@ -19,6 +20,7 @@ func (h *Host) HTML() string {
 
 	var b bytes.Buffer
 	if err := tmpl.Execute(&b, h); err != nil {
+		log.Fatalln("ERROR - failed to render template", err)
 	}
 
 	return b.String()
@@ -26,7 +28,6 @@ func (h *Host) HTML() string {
 
 func (h *Host) String() string {
 	data := make([][]string, len(h.Endpoints))
-
 
 	for i, e := range h.Endpoints {
 		data[i] = []string{

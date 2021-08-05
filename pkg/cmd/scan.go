@@ -25,7 +25,6 @@ var scanCmd = &cobra.Command{
 
 		format := strings.ToLower(f)
 
-
 		host, err := radar.Scan(h)
 		if err != nil {
 			log.Fatalln(err)
@@ -36,7 +35,7 @@ var scanCmd = &cobra.Command{
 		} else if format == "html" {
 			fmt.Println(host.HTML())
 		} else {
-			fmt.Printf("Unknown output format of %s - try using 'html' or 'plain'\n")
+			fmt.Printf("Unknown output format of %s - try using 'html' or 'plain'\n", format)
 		}
 	},
 }

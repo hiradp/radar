@@ -1,8 +1,8 @@
 package radar
 
 type Endpoint struct {
-	IPAddress string
+	IPAddress  string
 	ServerName string
-	Grade string
-	Cert Cert
+	Grade      string
+	Cert       Cert
 }

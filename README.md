@@ -6,7 +6,20 @@ A utility for monitoring SSL certs
 ```shell
 # Scan and output relevant SSL information for a host
  ./bin/radar scan <host>
+ 
+ # Get in HTML output
+ ./bin/radar scan <host> -f html
 
+```
+
+### Docker
+
+```shell
+# Build Image
+ docker build -t radar:local .
+ 
+ # Run the container
+ docker run -ti radar:local scan <host> -f html
 ```
 
 ## Contributing
@@ -39,4 +52,9 @@ Run tests with (What tests...?):
 
 ```shell
 go test ./...
+```
+
+Linting using [golangci](https://golangci-lint.run/usage/install/#local-installation)
+```shell
+golangci-lint run
 ```

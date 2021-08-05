@@ -25,7 +25,7 @@ func Scan(host string) (*Host, error) {
 
 	today := time.Now()
 	yesterday := today.Add(-24 * time.Hour)
-	testTime := time.Unix(resp.TestTime / 1000, 0)
+	testTime := time.Unix(resp.TestTime/1000, 0)
 
 	// WARN the user if the data is old and start a new analysis.
 	if testTime.Before(yesterday) {
@@ -60,7 +60,8 @@ func fetch(url string) (*analyzeResponse, error) {
 	responseBody, err := ioutil.ReadAll(response.Body)
 	if err != nil {
 		log.Println("ERROR failed to read response body.")
-		return nil, err	}
+		return nil, err
+	}
 
 	var resp analyzeResponse
 	if err = json.Unmarshal(responseBody, &resp); err != nil {
@@ -77,7 +78,7 @@ func fetch(url string) (*analyzeResponse, error) {
 // If we want to add more information, we need to modify this function
 func process(dto analyzeResponse) *Host {
 	host := Host{
-		Name: dto.Host,
+		Name:      dto.Host,
 		Endpoints: make([]Endpoint, len(dto.Endpoints)),
 	}
 
@@ -85,14 +86,14 @@ func process(dto analyzeResponse) *Host {
 
 	for i, e := range dto.Endpoints {
 		certDto := e.Details.Cert
-		notBefore := time.Unix(certDto.NotBefore / 1000, 0)
-		notAfter := time.Unix(certDto.NotAfter / 1000, 0)
+		notBefore := time.Unix(certDto.NotBefore/1000, 0)
+		notAfter := time.Unix(certDto.NotAfter/1000, 0)
 		host.Endpoints[i] = Endpoint{
-			IPAddress: e.IPAddress,
+			IPAddress:  e.IPAddress,
 			ServerName: e.ServerName,
-			Grade: e.Grade,
+			Grade:      e.Grade,
 			Cert: Cert{
-				Issuer: certDto.IssuerLabel,
+				Issuer:    certDto.IssuerLabel,
 				ExpiresAt: notAfter.UTC().String(),
 				// 0 - not checked
 				// 1 - certificate revoked
