@@ -1,0 +1,9 @@
+# Compiled outputs and binaries
+bin/
+
+# IDE related files
+.idea/
+.vscode/
+
+# Application level logs
+logs/

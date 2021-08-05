@@ -1,0 +1,23 @@
+<h1>Hostname: {{ .Name }}</h1>
+<table>
+    <tr>
+        <td>IP Address</td>
+        <td>Server</td>
+        <td>Grade</td>
+        <td>Information</td>
+    </tr>
+    {{ with .Endpoints }}
+        {{ range . }}
+            <tr>
+                <td>{{ .IPAddress }}</td>
+                <td>{{ .ServerName }}</td>
+                <td>{{ .Grade }}</td>
+                <td style="white-space:pre">
+                    Issuer: {{ .Cert.Issuer }}
+                    Expires At: {{ .Cert.ExpiresAt }}
+                    {{ if .Cert.IsValid }}Is valid{{ else }}Is not valid{{ end }}
+                </td>
+            </tr>
+        {{ end }}
+    {{ end }}
+</table>
